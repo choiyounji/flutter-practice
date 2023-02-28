@@ -10,108 +10,51 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Appbar',
-      theme: ThemeData(
-        primarySwatch: Colors.red
-      ),
-      home: MyPage(),
+      home: FirstPage(),
     );
   }
 }
 
-class MyPage extends StatelessWidget {
-  const MyPage({super.key});
+class FirstPage extends StatelessWidget {
+  const FirstPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar:  AppBar(
+        title: Text('First Page'),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          child: Text('Go to the Second page'),
+          onPressed: (){
+            Navigator.push(context,MaterialPageRoute(
+              builder: (context)=>SecondPage()
+            ));
+          },
+        ),
+      )
+    );
+  }
+}
+
+class SecondPage extends StatelessWidget {
+  const SecondPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Appbar icon menu'),
-        centerTitle: true,
-        elevation: 0.0,
-        //앱바 오른쪽에 배치
-        actions: <Widget>[
-          IconButton(
-          icon: Icon(Icons.shopping_cart), 
-          onPressed: () { 
-            print('Shopping cart button is clicked');
+        title: Text('Second page'),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          child: Text('Go to the First page'),
+          onPressed: (){
+            Navigator.pop(context);
           },
         ),
-        IconButton(
-          icon: Icon(Icons.search), 
-          onPressed: () { 
-            print('Search button is clicked');
-          },
-        ),
-        ]
-        ),
-        drawer: Drawer(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              UserAccountsDrawerHeader(
-                currentAccountPicture: CircleAvatar(
-                  backgroundImage: AssetImage('assets/memoji.png'),
-                  backgroundColor: Colors.white,
-                ),
-                otherAccountsPictures: <Widget>[
-                  CircleAvatar(
-                    backgroundImage: AssetImage('assets/zootopia.jpg'),
-                    backgroundColor: Colors.white,
-                  ),
-                  // CircleAvatar(
-                  //   backgroundImage: AssetImage('assets/zootopia.jpg'),
-                  //   backgroundColor: Colors.white,
-                  // )
-                ],
-                accountName: Text('CHOI YOUNJI'),
-                accountEmail: Text('younji@younji.com'),
-                onDetailsPressed: (){
-                  print('arrow is clicked');
-                },
-                decoration: BoxDecoration(
-                  color: Colors.red[200],
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(40.0),
-                    bottomRight: Radius.circular(40.0)
-                  )
-                )
-              ),
-              ListTile(
-                leading: Icon(
-                  Icons.home,
-                  color: Colors.grey[850]
-                  ),
-                title: Text('Home'),
-                onTap: (){
-                  print('Home is clicked');
-                },
-                trailing: Icon(Icons.add),
-              ),
-              ListTile(
-                leading: Icon(
-                  Icons.settings,
-                  color: Colors.grey[850]
-                  ),
-                title: Text('Setting'),
-                onTap: (){
-                  print('Setting is clicked');
-                },
-                trailing: Icon(Icons.add),
-              ),
-              ListTile(
-                leading: Icon(
-                  Icons.question_answer,
-                  color: Colors.grey[850]
-                  ),
-                title: Text('Q&A'),
-                onTap: (){
-                  print('Q&A is clicked');
-                },
-                trailing: Icon(Icons.add),
-              )
-            ],
-          ),
-        ),
-      );
+      ),
+    );
   }
 }
